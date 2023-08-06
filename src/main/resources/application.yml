@@ -1,0 +1,18 @@
+spring:
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/dingdong_order?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: root
+
+  # Redis 配置
+  redis:
+    host: localhost
+    port: 6379
+    password: root # 如果Redis有密码，填写对应的密码；如果没有密码，可以省略此行
+    database: 0 # Redis的数据库索引，默认为0
+
+server:
+  port: 8080  # 指定Spring Boot应用的端口号
+
