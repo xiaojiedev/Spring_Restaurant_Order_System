@@ -3,7 +3,7 @@ package com.zzy.dingdong_order.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 员工实体类
@@ -17,7 +17,8 @@ public class EmployeeEntity {
     private String password;
     private String phone;
     private String idNumber;
+    private int sex;
     private int status;
-    private Date createTime;
-    private Date updateTime;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
 }

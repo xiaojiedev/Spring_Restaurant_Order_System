@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/admin/employee")
@@ -32,7 +33,7 @@ public class EmployeeController {
     public Result<EmployeeEntity> login(HttpServletRequest request, @RequestBody EmployeeEntity employeeEntity) {
         //1、将页面提交的密码password进行md5加密处理
         String password = employeeEntity.getPassword();
-//        password = DigestUtils.md5DigestAsHex(password.getBytes());
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
         //2、根据页面提交的用户名username查询数据库
         LambdaQueryWrapper<EmployeeEntity> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(EmployeeEntity::getUsername, employeeEntity.getUsername());
@@ -65,5 +66,24 @@ public class EmployeeController {
         //清理Session中保存的当前登录员工id
         request.getSession().removeAttribute("employee");
         return Result.success("退出成功！");
+    }
+
+    /**
+     * 新增员工
+     * @param employeeEntity
+     * @return
+     */
+    @ApiOperation("新增员工")
+    @PostMapping
+    public Result<String> save(@RequestBody EmployeeEntity employeeEntity){
+        //获取前端传过来的密码
+        String password = employeeEntity.getPassword();
+        //对密码进行md5加密
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
+        employeeEntity.setCreateTime(LocalDateTime.now());
+        employeeEntity.setUpdateTime(LocalDateTime.now());
+        employeeEntity.setPassword(password);
+        employeeService.save(employeeEntity);
+        return Result.success("新增员工成功！");
     }
 }
