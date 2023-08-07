@@ -107,7 +107,17 @@ public class EmployeeController {
     @ApiOperation("根据id查询员工")
     @GetMapping("/{id}")
     public EmployeeEntity selectById(@PathVariable Long id){
-        EmployeeEntity employeeEntity = employeeService.getById(id);
-        return employeeEntity;
+        return employeeService.getById(id);
     }
+
+    /**
+     * 根据id删除员工
+     */
+    @ApiOperation("根据id删除员工")
+    @DeleteMapping("delete/{id}")
+    public Result removeById(@PathVariable Long id){
+        employeeService.removeById(id);
+        return Result.success("员工删除成功！");
+    }
+
 }
