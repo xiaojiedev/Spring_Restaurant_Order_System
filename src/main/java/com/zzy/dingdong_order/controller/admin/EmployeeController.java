@@ -1,17 +1,18 @@
 package com.zzy.dingdong_order.controller.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zzy.dingdong_order.common.result.PageResult;
 import com.zzy.dingdong_order.common.result.Result;
 import com.zzy.dingdong_order.entity.EmployeeEntity;
+import com.zzy.dingdong_order.entity.vo.EmployeeVO;
 import com.zzy.dingdong_order.service.EmployeeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -85,5 +86,16 @@ public class EmployeeController {
         employeeEntity.setPassword(password);
         employeeService.save(employeeEntity);
         return Result.success("新增员工成功！");
+    }
+
+    /**
+     * 分页查询员工
+     * @return
+     */
+    @ApiOperation("分页查询员工")
+    @GetMapping("/page")
+    public Result<PageResult> page(EmployeeVO employeeVO){
+        PageResult pageResult = employeeService.pageQuery(employeeVO);
+        return Result.success(pageResult);
     }
 }
