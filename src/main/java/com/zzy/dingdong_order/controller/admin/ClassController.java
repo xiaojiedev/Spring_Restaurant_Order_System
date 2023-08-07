@@ -1,7 +1,9 @@
 package com.zzy.dingdong_order.controller.admin;
 
+import com.zzy.dingdong_order.common.result.PageResult;
 import com.zzy.dingdong_order.common.result.Result;
 import com.zzy.dingdong_order.entity.ClassEntity;
+import com.zzy.dingdong_order.entity.vo.ClassVO;
 import com.zzy.dingdong_order.service.ClassService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,5 +50,17 @@ public class ClassController {
     public Result<String> delete(Long id){
         classService.removeById(id);
         return Result.success("删除成功！");
+    }
+
+    /**
+     * 分页查询分类
+     * @param classVO
+     * @return
+     */
+    @GetMapping("/page")
+    @ApiOperation("分页查询分类")
+    public Result<PageResult> page(ClassVO classVO){
+        PageResult pageResult = classService.pageQuery(classVO);
+        return Result.success(pageResult);
     }
 }
