@@ -1,16 +1,16 @@
 package com.zzy.dingdong_order.controller.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zzy.dingdong_order.common.result.PageResult;
 import com.zzy.dingdong_order.common.result.Result;
 import com.zzy.dingdong_order.entity.EmployeeEntity;
+import com.zzy.dingdong_order.entity.dto.EmployeeDTO;
 import com.zzy.dingdong_order.entity.vo.EmployeeVO;
 import com.zzy.dingdong_order.service.EmployeeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -120,4 +120,16 @@ public class EmployeeController {
         return Result.success("员工删除成功！");
     }
 
+    /**
+     * 根据id修改员工信息
+     * @param employeeEntity
+     * @return
+     */
+    @ApiOperation("根据id修改员工信息")
+    @PutMapping
+    public Result<String> update(@RequestBody EmployeeEntity employeeEntity){
+       employeeEntity.setUpdateTime(LocalDateTime.now());
+       employeeService.updateById(employeeEntity);
+       return Result.success("员工信息修改成功");
+    }
 }
