@@ -63,4 +63,17 @@ public class ClassController {
         PageResult pageResult = classService.pageQuery(classVO);
         return Result.success(pageResult);
     }
+
+    /**
+     * 根据id修改分类信息
+     * @param classEntity
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("根据id修改分类信息")
+    public Result<String> update(@RequestBody ClassEntity classEntity){
+        classEntity.setUpdateTime(LocalDateTime.now());
+        classService.updateById(classEntity);
+        return Result.success("分类信息修改成功");
+    }
 }
