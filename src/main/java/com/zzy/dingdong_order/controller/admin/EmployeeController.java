@@ -98,4 +98,16 @@ public class EmployeeController {
         PageResult pageResult = employeeService.pageQuery(employeeVO);
         return Result.success(pageResult);
     }
+
+    /**
+     * 根据id查询员工
+     * @param id
+     * @return
+     */
+    @ApiOperation("根据id查询员工")
+    @GetMapping("/{id}")
+    public EmployeeEntity selectById(@PathVariable Long id){
+        EmployeeEntity employeeEntity = employeeService.getById(id);
+        return employeeEntity;
+    }
 }
