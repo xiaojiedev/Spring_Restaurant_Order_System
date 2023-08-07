@@ -35,6 +35,18 @@ public class ClassController {
         classEntity.setCreateTime(LocalDateTime.now());
         classEntity.setUpdateTime(LocalDateTime.now());
         classService.save(classEntity);
-        return Result.success("新增分类成功");
+        return Result.success("新增分类成功！");
+    }
+
+    /**
+     * 根据id删除分类
+     * @param id
+     * @return
+     */
+    @DeleteMapping
+    @ApiOperation("根据id删除分类")
+    public Result<String> delete(Long id){
+        classService.removeById(id);
+        return Result.success("删除成功！");
     }
 }
